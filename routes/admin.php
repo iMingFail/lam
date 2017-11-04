@@ -25,7 +25,6 @@ Route::get('index', ['as' => 'admin.index', 'uses' => function () {
 
 
 Route::group(['middleware' => ['auth:admin', 'menu', 'authAdmin']], function () {
-
     //权限管理路由
     Route::get('permission/{cid}/create', ['as' => 'admin.permission.create', 'uses' => 'PermissionController@create']);
     Route::get('permission/manage', ['as' => 'admin.permission.manage', 'uses' => 'PermissionController@index']);
@@ -43,11 +42,19 @@ Route::group(['middleware' => ['auth:admin', 'menu', 'authAdmin']], function () 
     Route::post('user/index', ['as' => 'admin.user.index', 'uses' => 'UserController@index']);
     Route::resource('user', 'UserController', ['names' => ['update' => 'admin.user.edit', 'store' => 'admin.user.create']]);
 
+	
 	//迅联数据路由
 	Route::get('xunlian/manage', ['as' => 'admin.xunlian.manage', 'uses' => 'XunlianController@index']);
 	Route::get('xunlian/index', ['as' => 'admin.xunlian.index', 'uses' => 'XunlianController@index']);  //客户列表
     Route::post('xunlian/index', ['as' => 'admin.xunlian.index', 'uses' => 'XunlianController@index']);
     Route::resource('xunlian', 'XunlianController', ['names' => ['update' => 'admin.xunlian.edit', 'store' => 'admin.xunlian.create']]);
+	
+	//迅联商户号管理
+	Route::get('merchant/{cid}/create', ['as' => 'admin.merchant.create', 'uses' => 'MerchantController@create']);
+	Route::get('merchant/{cid?}/index', ['as' => 'admin.merchant.index', 'uses' => 'MerchantController@index']);
+	//Route::get('merchant/index', ['as' => 'admin.merchant.index', 'uses' => 'MerchantController@index']);  //商户号列表
+    Route::post('merchant/index', ['as' => 'admin.merchant.index', 'uses' => 'MerchantController@index']);
+    Route::resource('merchant', 'XunlianController', ['names' => ['update' => 'admin.merchant.edit', 'store' => 'admin.merchant.create']]);
 });
 
 Route::get('/', function () {
