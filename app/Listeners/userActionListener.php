@@ -30,13 +30,13 @@ class userActionListener implements ShouldQueue
     {
         $str = '管理员:' . $event->adminName . '(id:' . $event->uid . ')' . $event->content;
 
-        Log::info($str);
-//        $log=new \App\Models\OperatorLog();
-//        $log->uid=$event->uid;
-//        $log->model=$event->model;
-//        $log->aid = $event->aid;
-//        $log->type= $event->type;
-//        $log->content = $event->content;
-//        $log->save();
+        //Log::info($str);
+       $log=new \App\Models\OperatorLog();
+       $log->uid=$event->uid;
+       $log->model=$event->model;
+       $log->aid = $event->aid;
+       $log->type= $event->type;
+       $log->content = $event->content;
+       $log->save();
     }
 }

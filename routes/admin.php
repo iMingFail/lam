@@ -33,18 +33,21 @@ Route::group(['middleware' => ['auth:admin', 'menu', 'authAdmin']], function () 
     Route::post('permission/index', ['as' => 'admin.permission.index', 'uses' => 'PermissionController@index']); //查询
     Route::resource('permission', 'PermissionController', ['names' => ['update' => 'admin.permission.edit', 'store' => 'admin.permission.create']]);
 
-
     //角色管理路由
     Route::get('role/index', ['as' => 'admin.role.index', 'uses' => 'RoleController@index']);
     Route::post('role/index', ['as' => 'admin.role.index', 'uses' => 'RoleController@index']);
     Route::resource('role', 'RoleController', ['names' => ['update' => 'admin.role.edit', 'store' => 'admin.role.create']]);
 
-
     //用户管理路由
     Route::get('user/index', ['as' => 'admin.user.index', 'uses' => 'UserController@index']);  //用户管理
     Route::post('user/index', ['as' => 'admin.user.index', 'uses' => 'UserController@index']);
-    Route::resource('user', 'UserController', ['names' => ['update' => 'admin.role.edit', 'store' => 'admin.role.create']]);
+    Route::resource('user', 'UserController', ['names' => ['update' => 'admin.user.edit', 'store' => 'admin.user.create']]);
 
+	//迅联数据路由
+	Route::get('xunlian/manage', ['as' => 'admin.xunlian.manage', 'uses' => 'XunlianController@index']);
+	Route::get('xunlian/index', ['as' => 'admin.xunlian.index', 'uses' => 'XunlianController@index']);  //客户列表
+    Route::post('xunlian/index', ['as' => 'admin.xunlian.index', 'uses' => 'XunlianController@index']);
+    Route::resource('xunlian', 'XunlianController', ['names' => ['update' => 'admin.xunlian.edit', 'store' => 'admin.xunlian.create']]);
 });
 
 Route::get('/', function () {

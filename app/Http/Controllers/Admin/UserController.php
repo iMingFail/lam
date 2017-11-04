@@ -46,16 +46,14 @@ class UserController extends Controller
                     ->orderBy($columns[$order[0]['column']]['data'], $order[0]['dir'])
                     ->get();
             } else {
-                $data['recordsFiltered'] = User::count();
+                $data['recordsFiltered'] = $data['recordsTotal'];
                 $data['data'] = User::
                 skip($start)->take($length)
                     ->orderBy($columns[$order[0]['column']]['data'], $order[0]['dir'])
                     ->get();
             }
-
             return response()->json($data);
         }
-
         return view('admin.user.index');
     }
 
@@ -131,8 +129,7 @@ class UserController extends Controller
         }
         $data['rolesAll'] = Role::all()->toArray();
         $data['id'] = (int)$id;
-        event(new \App\Events\userActionEvent('\App\Models\Admin\AdminUser', $user->id, 3, '编辑了用户' . $user->name));
-
+        
         return view('admin.user.edit', $data);
     }
 
@@ -157,6 +154,7 @@ class UserController extends Controller
 
         $user->save();
         $user->giveRoleTo($request->get('roles', []));
+		event(new \App\Events\userActionEvent('\App\Models\Admin\AdminUser', $user->id, 3, '编辑了用户' . $user->name));
 
         return redirect('/admin/user')->withSuccess('添加成功！');
     }
