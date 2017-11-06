@@ -162,7 +162,7 @@ class LunxunController extends Controller
      */
     public function show($i)
     {
-		ini_set('max_execution_time', '0');
+		//ini_set('max_execution_time', '0');
 		$data= session('data');
         foreach($data as $key=>$v){
 			if($key>$i){
@@ -192,7 +192,7 @@ class LunxunController extends Controller
 			event(new \App\Events\userActionEvent('\App\Models\Admin\Lunxun', 0, 1, '批量执行轮询' ));
 			return redirect('/admin/lunxun');
 		}
-		echo "正在轮询·······".$i;
+		echo "正在轮询·······".$i.time();
 		echo "<script>window.location='/admin/lunxun/show/".$i."';</script>";
 		//return redirect('/admin/lunxun/show/'.$i);
     }
