@@ -90,8 +90,6 @@ class LunxunController extends Controller
      */
     public function store(Request $request)
     {
-		ini_set('max_execution_time', '0');
-		ini_set('memory_limit','1024M');
 		$file = $request->file('file');
 		$fileName = date('YmdHis').'.'.$file->getClientOriginalExtension();
 		$path = Storage::put($fileName, file_get_contents($file->getRealPath()));
@@ -164,6 +162,8 @@ class LunxunController extends Controller
      */
     public function show($i)
     {
+		ini_set('max_execution_time', '0');
+		ini_set('memory_limit','1024M');
 		ob_start();
 		echo '正在轮查······';
 		ob_end_flush();
@@ -183,7 +183,7 @@ class LunxunController extends Controller
 				$tag->channlNum = $channlNum;
 				$tag->mid = $merchant->id;
 				$tag->save();
-				if($key%10==0){
+				if($key%5==0){
 					$i = $key;
 				}
 			}
