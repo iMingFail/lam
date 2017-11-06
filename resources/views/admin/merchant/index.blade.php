@@ -118,7 +118,7 @@
                                 url: '/admin/merchant/index',
                                 type: 'POST',
 								data: function (d) {
-									d.cid = cid;
+									d.cid = {{$cid}};
 								},
                                 headers: {
                                     'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')

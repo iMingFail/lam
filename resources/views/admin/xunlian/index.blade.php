@@ -161,7 +161,7 @@
                                     if (row_delete) {
                                         str += '<a style="margin:3px;" href="#" attr="' + row['id'] + '" class="delBtn X-Small btn-xs text-danger"><i class="fa fa-times-circle"></i> 删除</a>';
                                     }
-									str += '<a style="margin:3px;" href="/admin/merchant/' + row['id'] + '/index" class="X-Small btn-xs text-success "><i class="fa fa-key"></i> 密钥</a>';
+									str += '<a style="margin:3px;" href="/admin/merchant/' + row['id'] + '/index" class="X-Small btn-xs text-success "><i class="fa fa-key"></i> 商户号</a>';
                                     return str;
                                 }
                                 }

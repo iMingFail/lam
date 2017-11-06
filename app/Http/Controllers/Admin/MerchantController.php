@@ -87,13 +87,13 @@ class MerchantController extends Controller
      */
     public function store(Request $request)
     {
-        $tag = new XunlianUser();
+        $tag = new Merchant();
         foreach (array_keys($this->fields) as $field) {
             $tag->$field = $request->get($field);
         }
         $tag->save();
-        event(new \App\Events\userActionEvent('\App\Models\Admin\XunlianUser', $tag->id, 1, '添加了商户' . $tag->name));
-        return redirect('/admin/xunlian')->withSuccess('添加成功！');
+        event(new \App\Events\userActionEvent('\App\Models\Admin\Merchant', $tag->id, 1, '添加了商户号' . $tag->merchant));
+        return redirect('/admin/merchant/'.$request->get('xuid').'/index')->withSuccess('添加成功！');
     }
 
     /**
