@@ -166,7 +166,6 @@ class LunxunController extends Controller
 		ini_set('memory_limit','1024M');
 		$data= session('data');
         foreach($data as $key=>$v){
-			
 			if($key%5==0){
 				break;
 			}
@@ -189,9 +188,10 @@ class LunxunController extends Controller
 		}
 		if($i>=count($data)){
 			event(new \App\Events\userActionEvent('\App\Models\Admin\Lunxun', 0, 1, '批量执行轮询' ));
-			return redirect('/admin/lunxun');
+			//return redirect('/admin/lunxun');
+			echo 123;
 		}
-		return redirect('/admin/lunxun/show/'.$i);
+		//return redirect('/admin/lunxun/show/'.$i);
     }
 
     /**
