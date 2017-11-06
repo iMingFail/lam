@@ -167,7 +167,7 @@ class LunxunController extends Controller
 		ob_start();
 		echo '正在轮查······';
 		ob_end_flush();
-		$data= session($data);
+		$data= session('data');
         foreach($data as $key=>$v){
 			if($key>$i){
 				$merchant = Merchant::where('mchntid',$v[0])->first();
