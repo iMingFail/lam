@@ -168,7 +168,6 @@ class LunxunController extends Controller
 			$str.= $miyao;
 			$qxdata['sign'] = hash("sha256", $str);
 			$qpc = json_decode(xlcurl('https://showmoney.cn/scanpay/unified',json_encode($qxdata)),true);
-			//file_put_contents('qcp.txt',$qpc);
 			return $qpc['errorDetail'];
 		}
 		return $pc['errorDetail'];
