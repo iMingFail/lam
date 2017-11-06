@@ -112,7 +112,7 @@ class LunxunController extends Controller
 					$tag->channlNum = $channlNum;
 					$tag->mid = $merchant->id;
 					$tag->save();
-					sleep(1);
+					usleep(50000)
 				}
 			}
 		});
