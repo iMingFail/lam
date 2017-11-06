@@ -170,7 +170,7 @@ class LunxunController extends Controller
 					break;
 				}
 				$k = $key;
-				/*  $merchant = Merchant::where('mchntid',$v[0])->first();
+				$merchant = Merchant::where('mchntid',$v[0])->first();
 				if(!$merchant){
 					continue;
 				}
@@ -182,7 +182,7 @@ class LunxunController extends Controller
 				$tag->orderNum = $v[2];
 				$tag->channlNum = $channlNum;
 				$tag->mid = $merchant->id;
-				$tag->save();  */
+				$tag->save();
 			}
 		}
 		if($i>=count($data)||count($data)==0){
