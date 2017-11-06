@@ -170,7 +170,7 @@ class LunxunController extends Controller
 				if($key==0){
 					continue;
 				}
-				if($key%5==0){
+				if($key%5==0&&$key!=$i){
 					break;
 				}
 				/* $merchant = Merchant::where('mchntid',$v[0])->first();
