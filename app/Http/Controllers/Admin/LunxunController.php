@@ -165,7 +165,7 @@ class LunxunController extends Controller
 		ini_set('max_execution_time', '0');
 		$data= session('data');
         foreach($data as $key=>$v){
-			if($key>=$i){
+			if($key>$i){
 				$i = $key;
 				if($key==0){
 					continue;
