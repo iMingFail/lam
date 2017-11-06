@@ -166,13 +166,13 @@ class LunxunController extends Controller
 		$data= session('data');
         foreach($data as $key=>$v){
 			if($key>=$i){
+				$i = $key;
 				if($key==0){
 					continue;
 				}
 				if($key%5==0){
 					break;
 				}
-				$i = $key;
 				/* $merchant = Merchant::where('mchntid',$v[0])->first();
 				if(!$merchant){
 					continue;
@@ -188,7 +188,7 @@ class LunxunController extends Controller
 				$tag->save(); */
 			}
 		}
-		if($i>=count($data)){
+		if($i>=count($data)||count($data)==0){
 			event(new \App\Events\userActionEvent('\App\Models\Admin\Lunxun', 0, 1, '批量执行轮询' ));
 			return redirect('/admin/lunxun');
 		}
