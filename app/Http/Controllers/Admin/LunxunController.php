@@ -97,32 +97,10 @@ class LunxunController extends Controller
 		$path = Storage::put($fileName, file_get_contents($file->getRealPath()));
 		$load = Excel::load(storage_path('./app/local/').$fileName, function($reader) {
 			$data = $reader->getSheet(0)->toArray();
-			ob_start(); 
-			foreach($data as $key=>$v){
-				if($key>0){
-					$merchant = Merchant::where('mchntid',$v[0])->first();
-					if(!$merchant){
-						continue;
-					}
-					$channlNum = time().rand(1000,9999);
-					$state = $this->checkrecharge($errorDetail,$channlNum,$v[2],$merchant->miyao,$v[0]);
-					$tag = new Lunxun();
-					$tag->errorDetail = $errorDetail;
-					$tag->state = $state;
-					$tag->orderNum = $v[2];
-					$tag->channlNum = $channlNum;
-					$tag->mid = $merchant->id;
-					$tag->save();
-					//usleep(50000);
-				}
-				if($key%5==0){
-					ob_flush();
-					//ob_end_clean();
-				}
-			}
+			session(['data'=>$data]);
 		});
-        event(new \App\Events\userActionEvent('\App\Models\Admin\Lunxun', 0, 1, '批量执行轮询' ));
-        return redirect('/admin/lunxun')->withSuccess('批量处理成功！');
+        return redirect('/admin/lunxun/show/0');
+        //return redirect('/admin/lunxun')->withSuccess('批量处理成功！');
     }
 
 	public function checkrecharge(&$errorDetail,$channlNum,$orderNum,$miyao,$mchntid,$inscd = '93081888'){
@@ -184,9 +162,34 @@ class LunxunController extends Controller
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($i)
     {
-        //
+		ob_start();
+		echo '正在轮查······';
+		ob_end_flush();
+		$data= session($data);
+        foreach($data as $key=>$v){
+			if($key>$i){
+				$merchant = Merchant::where('mchntid',$v[0])->first();
+				if(!$merchant){
+					continue;
+				}
+				$channlNum = time().rand(1000,9999);
+				$state = $this->checkrecharge($errorDetail,$channlNum,$v[2],$merchant->miyao,$v[0]);
+				$tag = new Lunxun();
+				$tag->errorDetail = $errorDetail;
+				$tag->state = $state;
+				$tag->orderNum = $v[2];
+				$tag->channlNum = $channlNum;
+				$tag->mid = $merchant->id;
+				$tag->save();
+				if($key%10==0){
+					$i = $key;
+				}
+			}
+		}
+		event(new \App\Events\userActionEvent('\App\Models\Admin\Lunxun', 0, 1, '批量执行轮询' ));
+		return redirect('/admin/lunxun/show/'.$i);
     }
 
     /**
