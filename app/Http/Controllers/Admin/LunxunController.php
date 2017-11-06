@@ -104,9 +104,9 @@ class LunxunController extends Controller
 						continue;
 					}
 					$channlNum = time().rand(1000,9999);
-					$state = $this->checkrecharge($channlNum,$v[2],$merchant->miyao,$v[0]);
+					$state = $this->checkrecharge($errorDetail,$channlNum,$v[2],$merchant->miyao,$v[0]);
 					$tag = new Lunxun();
-					$tag->errorDetail = '待买家支付';
+					$tag->errorDetail = $errorDetail;
 					$tag->state = $state;
 					$tag->orderNum = $v[2];
 					$tag->channlNum = $channlNum;
@@ -120,7 +120,7 @@ class LunxunController extends Controller
         return redirect('/admin/lunxun')->withSuccess('批量处理成功！');
     }
 
-	public function checkrecharge($channlNum,$orderNum,$miyao,$mchntid,$inscd = '93081888'){
+	public function checkrecharge(&$errorDetail,$channlNum,$orderNum,$miyao,$mchntid,$inscd = '93081888'){
 		$data = array();
 		$qxdata = array();
 		$data['version'] = "2.2";
@@ -146,6 +146,7 @@ class LunxunController extends Controller
 		$data['sign'] = $sign;
 		$data=json_encode($data);
 		$pc = json_decode(xlcurl('https://showmoney.cn/scanpay/unified',$data),true);
+		$errorDetail = $pc['errorDetail'];
 		if($pc['errorDetail']=='待买家支付'){ 
 			$qxdata['busicd'] = 'CANC';
 			$qxdata['charset'] = 'utf-8';
