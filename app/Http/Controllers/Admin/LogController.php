@@ -1,25 +1,15 @@
 <?php
 namespace App\Http\Controllers\Admin;
 
-use App\Models\Admin\XunlianUser;
+use App\Models\Admin\OperatorLog;
 use App\Models\Admin\AdminUser as User;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class XunlianController extends Controller
+class LogController extends Controller
 {
     protected $fields = [
-        'name'  => '',
-        'count_price' => 0,
-        'paid_price' => 0,
-		'bepaid_price' => 0,
-		'remake' => '',
-		'domain' => '',
-		'datum' => '',
-		'username' => '',
-		'phone' => '',
-		'wechat' => '',
-		'aid' => 1
+       
     ];
 
     /**

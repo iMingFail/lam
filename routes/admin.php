@@ -42,6 +42,8 @@ Route::group(['middleware' => ['auth:admin', 'menu', 'authAdmin']], function () 
     Route::post('user/index', ['as' => 'admin.user.index', 'uses' => 'UserController@index']);
     Route::resource('user', 'UserController', ['names' => ['update' => 'admin.user.edit', 'store' => 'admin.user.create']]);
 
+	//操作日志
+	Route::any('log/index', ['as' => 'admin.log.index', 'uses' => 'LogController@index']);//日志记录
 	
 	//迅联数据路由
 	Route::get('xunlian/manage', ['as' => 'admin.xunlian.manage', 'uses' => 'XunlianController@index']);
