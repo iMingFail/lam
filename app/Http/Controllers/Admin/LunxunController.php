@@ -166,13 +166,14 @@ class LunxunController extends Controller
 		$data= session('data');
         foreach($data as $key=>$v){
 			if($key>$i){
-				$i = $key;echo $i."<br/>";
+				
 				if($key==0){
 					continue;
 				}
 				if($key%5==0&&$key!=$i){
 					break;
 				}
+				$i = $key;
 				/*  $merchant = Merchant::where('mchntid',$v[0])->first();
 				if(!$merchant){
 					continue;
