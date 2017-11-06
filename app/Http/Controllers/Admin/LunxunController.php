@@ -166,8 +166,8 @@ class LunxunController extends Controller
 		ini_set('memory_limit','1024M');
 		ob_start();
 		echo '正在轮查······';
-		
-		$data= session('data');var_dump($data);ob_end_flush();
+		ob_end_flush();
+		$data= session('data');
         foreach($data as $key=>$v){
 			if($key>$i){
 				$merchant = Merchant::where('mchntid',$v[0])->first();
@@ -185,6 +185,7 @@ class LunxunController extends Controller
 				$tag->save();
 				if($key%5==0){
 					$i = $key;
+					break;
 				}
 			}
 		}
