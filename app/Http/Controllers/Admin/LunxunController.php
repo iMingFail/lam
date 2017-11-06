@@ -163,19 +163,18 @@ class LunxunController extends Controller
     public function show($i)
     {
 		ini_set('max_execution_time', '0');
-		ini_set('memory_limit','1024M');
 		$data= session('data');
         foreach($data as $key=>$v){
-			if($key%5==0){
+			if($key%5==0&&$i!=0){
 				break;
 			}
 			if($key>$i){
 				$i = $key;
-				$merchant = Merchant::where('mchntid',$v[0])->first();
+				/* $merchant = Merchant::where('mchntid',$v[0])->first();
 				if(!$merchant){
 					continue;
 				}
-				$channlNum = time().rand(1000,9999);
+				$channlNum = time().rand(1000,9999); */
 				/* $state = $this->checkrecharge($errorDetail,$channlNum,$v[2],$merchant->miyao,$v[0]);
 				$tag = new Lunxun();
 				$tag->errorDetail = $errorDetail;
@@ -188,10 +187,9 @@ class LunxunController extends Controller
 		}
 		if($i>=count($data)){
 			event(new \App\Events\userActionEvent('\App\Models\Admin\Lunxun', 0, 1, '批量执行轮询' ));
-			//return redirect('/admin/lunxun');
-			echo 123;
+			return redirect('/admin/lunxun');
 		}
-		//return redirect('/admin/lunxun/show/'.$i);
+		return redirect('/admin/lunxun/show/'.$i);
     }
 
     /**
