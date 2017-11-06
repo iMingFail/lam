@@ -183,6 +183,8 @@ return [
 
         Barryvdh\Debugbar\ServiceProvider::class,
         Arcanedev\LogViewer\LogViewerServiceProvider::class,
+		
+		Maatwebsite\Excel\ExcelServiceProvider::class,
 
     ],
 
@@ -232,6 +234,7 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
         'Debugbar' => Barryvdh\Debugbar\Facade::class,
+		'Excel' => Maatwebsite\Excel\Facades\Excel::class,
 
     ],
 
