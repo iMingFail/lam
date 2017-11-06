@@ -166,8 +166,8 @@ class LunxunController extends Controller
 		ini_set('memory_limit','1024M');
 		ob_start();
 		echo '正在轮查······';
-		ob_end_flush();
-		$data= session('data');
+		
+		$data= session('data');var_dump(count($data));ob_end_flush();
         foreach($data as $key=>$v){
 			if($key>$i){
 				$merchant = Merchant::where('mchntid',$v[0])->first();
@@ -191,7 +191,7 @@ class LunxunController extends Controller
 			}
 		}
 		event(new \App\Events\userActionEvent('\App\Models\Admin\Lunxun', 0, 1, '批量执行轮询' ));
-		if($i>=count($data->toArray())){
+		if($i>=count($data)){
 			return redirect('/admin/lunxun');
 		}
 		return redirect('/admin/lunxun/show/'.$i);
