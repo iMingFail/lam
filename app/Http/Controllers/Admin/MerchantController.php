@@ -147,7 +147,7 @@ class MerchantController extends Controller
         }
         $tag->save();
 		event(new \App\Events\userActionEvent('\App\Models\Admin\Merchant', $tag->id, 3, '编辑了商户号' . $tag->mchntid));
-        return redirect('/admin/merchant'.$request->get('xuid').'/index')->withSuccess('添加成功！');
+        return redirect('/admin/merchant/'.$request->get('xuid').'/index')->withSuccess('添加成功！');
     }
 
     /**

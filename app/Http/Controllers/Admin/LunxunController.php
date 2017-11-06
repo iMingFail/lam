@@ -186,7 +186,7 @@ class LunxunController extends Controller
 				$tag->save();
 			}
 		}
-		if($i>=count($data)||count($data)==0){
+		if($k>=count($data)-1||count($data)==0){
 			event(new \App\Events\userActionEvent('\App\Models\Admin\Lunxun', 0, 1, '批量执行轮询' ));
 			return redirect('/admin/lunxun');
 		}
