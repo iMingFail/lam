@@ -52,7 +52,7 @@ Route::group(['middleware' => ['auth:admin', 'menu', 'authAdmin']], function () 
 	//迅联商户号管理
 	Route::get('merchant/{cid}/create', ['as' => 'admin.merchant.create', 'uses' => 'MerchantController@create']);
 	Route::get('merchant/index', ['as' => 'admin.merchant.index', 'uses' => 'MerchantController@index']);
-	Route::get('merchant/{cid?}/index', ['as' => 'admin.merchant.index', 'uses' => 'MerchantController@index']);
+	Route::any('merchant/{cid?}/index', ['as' => 'admin.merchant.index', 'uses' => 'MerchantController@index']);
 	//Route::get('merchant/index', ['as' => 'admin.merchant.index', 'uses' => 'MerchantController@index']);  //商户号列表
     Route::post('merchant/index', ['as' => 'admin.merchant.index', 'uses' => 'MerchantController@index']);
     Route::resource('merchant', 'MerchantController', ['names' => ['update' => 'admin.merchant.edit', 'store' => 'admin.merchant.create']]);

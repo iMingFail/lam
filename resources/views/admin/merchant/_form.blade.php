@@ -20,9 +20,14 @@
 <div class="form-group">
     <label for="tag" class="col-md-3 control-label">所属客户</label>
     <div class="col-md-5">
-        <select class="form-control" name="xuid" @if($xuid!=0) disabled @endif>
+        <select class="form-control" name="xuid" >
 		@foreach ($xuids as $xu)
-			<option value='{{$xu->id}}' @if($xuid==$xu->id) selected @endif>{{$xu->name}}</option>
+			 @if($xuid!=0) 
+					@if($xuid==$xu->id) <option value='{{$xu->id}}' @if($xuid==$xu->id) selected @endif>{{$xu->name}}</option> @endif
+			 @else
+				<option value='{{$xu->id}}' @if($xuid==$xu->id) selected @endif>{{$xu->name}}</option>
+			 @endif
+			
 		@endforeach
 		</select>
     </div>

@@ -115,7 +115,7 @@
                             order: [[5, "desc"]],
                             serverSide: true,
                             ajax: {
-                                url: '/admin/merchant/index',
+                                url: '/admin/merchant/{{$cid}}/index',
                                 type: 'POST',
 								data: function (d) {
 									d.cid = {{$cid}};

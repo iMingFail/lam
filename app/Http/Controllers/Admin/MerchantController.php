@@ -52,6 +52,11 @@ class MerchantController extends Controller
             } else {
                 $data['recordsFiltered'] = $data['recordsTotal'];
                 $data['data'] = Merchant::select("xunlian_users.name","xunlian_merchants.*")->leftJoin('xunlian_users', 'xunlian_users.id', '=', 'xuid')
+					->where(function ($query)use($cid){
+						if($cid!=0){
+							$query->where('xunlian_merchants.xuid',$cid);
+						}
+					})
 					->skip($start)->take($length)
                     ->orderBy($columns[$order[0]['column']]['data'], $order[0]['dir'])
                     ->get();
