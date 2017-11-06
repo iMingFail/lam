@@ -165,10 +165,13 @@ class LunxunController extends Controller
 		ini_set('max_execution_time', '0');
 		$data= session('data');
         foreach($data as $key=>$v){
-			if($key%5==0&&$i!=0){
-				break;
-			}
-			if($key>$i){
+			if($key>=$i){
+				if($key==0){
+					continue;
+				}
+				if($key%5==0){
+					break;
+				}
 				$i = $key;
 				/* $merchant = Merchant::where('mchntid',$v[0])->first();
 				if(!$merchant){
