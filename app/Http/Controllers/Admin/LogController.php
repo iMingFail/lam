@@ -1,7 +1,7 @@
 <?php
 namespace App\Http\Controllers\Admin;
 
-use App\Models\Admin\OperatorLog;
+use App\Models\OperatorLog;
 use App\Models\Admin\AdminUser as User;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -27,37 +27,25 @@ class LogController extends Controller
             $order = $request->get('order');
             $columns = $request->get('columns');
             $search = $request->get('search');
-            $data['recordsTotal'] = XunlianUser::count();
+            $data['recordsTotal'] = OperatorLog::count();
             if (strlen($search['value']) > 0) {
-                $data['recordsFiltered'] = XunlianUser::where(function ($query) use ($search) {
-                    $query->where('name', 'LIKE', '%' . $search['value'] . '%')
-                        ->orWhere('domain', 'like', '%' . $search['value'] . '%')
-						->orWhere('remake', 'like', '%' . $search['value'] . '%')
-						->orWhere('datum', 'like', '%' . $search['value'] . '%')
-						->orWhere('phone', 'like', '%' . $search['value'] . '%')
-						->orWhere('count_price', 'like', '%' . $search['value'] . '%')
-						->orWhere('paid_price', 'like', '%' . $search['value'] . '%')
-						->orWhere('bepaid_price', 'like', '%' . $search['value'] . '%');
+                $data['recordsFiltered'] = OperatorLog::where(function ($query) use ($search) {
+                    $query->where('model', 'LIKE', '%' . $search['value'] . '%')
+                        ->orWhere('content', 'like', '%' . $search['value'] . '%');
                 })->count();
-                $data['data'] = XunlianUser::select('xunlian_users.*','admin_users.name as aname')
-					->leftJoin('admin_users', 'xunlian_users.aid', '=', 'admin_users.id')
+                $data['data'] = OperatorLog::select('operator_logs.*','admin_users.name as aname')
+					->leftJoin('admin_users', 'operator_logs.aid', '=', 'admin_users.id')
 					->where(function ($query) use ($search) {
 						$query->where('name', 'LIKE', '%' . $search['value'] . '%')
-							->orWhere('domain', 'like', '%' . $search['value'] . '%')
-							->orWhere('remake', 'like', '%' . $search['value'] . '%')
-							->orWhere('datum', 'like', '%' . $search['value'] . '%')
-							->orWhere('phone', 'like', '%' . $search['value'] . '%')
-							->orWhere('count_price', 'like', '%' . $search['value'] . '%')
-							->orWhere('paid_price', 'like', '%' . $search['value'] . '%')
-							->orWhere('bepaid_price', 'like', '%' . $search['value'] . '%');
+							->orWhere('content', 'like', '%' . $search['value'] . '%');
 					})
                     ->skip($start)->take($length)
                     ->orderBy($columns[$order[0]['column']]['data'], $order[0]['dir'])
                     ->get();
             } else {
                 $data['recordsFiltered'] = $data['recordsTotal'];
-                $data['data'] = XunlianUser::select('xunlian_users.*','admin_users.name as aname')
-					->leftJoin('admin_users', 'xunlian_users.aid', '=', 'admin_users.id')
+                $data['data'] = OperatorLog::select('operator_logs.*','admin_users.name as aname')
+					->leftJoin('admin_users', 'operator_logs.aid', '=', 'admin_users.id')
 					->skip($start)->take($length)
                     ->orderBy($columns[$order[0]['column']]['data'], $order[0]['dir'])
                     ->get();
@@ -66,7 +54,7 @@ class LogController extends Controller
             return response()->json($data);
         }
 
-        return view('admin.xunlian.index');
+        return view('admin.log.index');
     }
 
     /**

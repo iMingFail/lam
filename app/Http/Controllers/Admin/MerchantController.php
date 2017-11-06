@@ -128,6 +128,7 @@ class MerchantController extends Controller
         }
         $data['xuids'] = XunlianUser::select('id','name')->get();
 		$data['xuid'] = $tag->xuid;
+		$data['id'] = $id;
         return view('admin.merchant.edit', $data);
     }
 

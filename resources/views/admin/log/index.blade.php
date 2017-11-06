@@ -12,9 +12,9 @@
         <div class="col-md-6">
         </div>
         <div class="col-md-6 text-right">
-            @if(Gate::forUser(auth('admin')->user())->check('admin.xunlian.create'))
-                <a href="/admin/xunlian/create" class="btn btn-success btn-md">
-                    <i class="fa fa-plus-circle"></i> 添加商户
+            @if(Gate::forUser(auth('admin')->user())->check('admin.log.create'))
+                <a href="/admin/log/create" class="btn btn-success btn-md">
+                    <i class="fa fa-plus-circle"></i> 添加日志
                 </a>
             @endif
         </div>
@@ -36,21 +36,12 @@
                     <table id="tags-table" class="table table-bordered table-hover">
                         <thead>
                         <tr>
-                            <th data-sortable="false" class="hidden-sm"></th>
-                            <th class="hidden-sm">客户名称</th>
-							<th class="hidden-sm">姓名</th>
-							<th class="hidden-sm">手机</th>
-							<th class="hidden-sm">微信群</th>
-							<th class="hidden-md">域名</th>
-							<th class="hidden-md">资料文件</th>
-							<th class="hidden-sm">总款项</th>
-                            <th class="hidden-md">已付</th>
-                            <th class="hidden-md">未付</th>
-							<th class="hidden-md">备注</th>
-							<th class="hidden-md">跟进人</th>
+                            <th data-sortable="false" class="hidden-sm">序号</th>
+                            <th class="hidden-sm">模型</th>
+							<th class="hidden-sm">操作人</th>
+							<th class="hidden-sm">操作内容</th>
+							<th class="hidden-sm">操作类型</th>
 							<th class="hidden-md">创建时间</th>
-							<th class="hidden-md">更新时间</th>
-                            <th data-sortable="false">操作</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -74,11 +65,11 @@
                 <div class="modal-body">
                     <p class="lead">
                         <i class="fa fa-question-circle fa-lg"></i>
-                        确认要删除这个客户吗?
+                        确认要删除这个日志吗?
                     </p>
                 </div>
                 <div class="modal-footer">
-                    <form class="deleteForm" method="POST" action="/admin/xunlian">
+                    <form class="deleteForm" method="POST" action="/admin/log">
                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
                         <input type="hidden" name="_method" value="DELETE">
                         <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
@@ -119,10 +110,10 @@
                                     "sSortDescending": ": 以降序排列此列"
                                 }
                             },
-                            order: [[8, "desc"]],
+                            order: [[5, "desc"]],
                             serverSide: true,
                             ajax: {
-                                url: '/admin/xunlian/index',
+                                url: '/admin/log/index',
                                 type: 'POST',
                                 headers: {
                                     'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
@@ -130,46 +121,43 @@
                             },
                             "columns": [
                                 {"data": "id"},
-                                {"data": "name"},
-                                {"data": "username"},
-								{"data": "phone"},
-								{"data": "wechat"},
-								{"data": "domain"},
-								{"data": "datum"},
-								{"data": "count_price"},
-								{"data": "paid_price"},
-								{"data": "bepaid_price"},
-								{"data": "remake"},
-								{"data": "aname"},
-                                {"data": "created_at"},
-                                {"data": "updated_at"},
-                                {"data": "action"}
+                                {"data": "model"},
+                                {"data": "aname"},
+								{"data": "content"},
+								{"data": "type","render":function(data){
+														switch(data){
+															case 1:
+															return "新增";
+															case 2:
+															return "删除";
+															case 3:
+															return "编辑";
+														}
+													}
+								},
+                                {"data":"created_at"}
                             ],
-                            columnDefs: [
+                           /*  columnDefs: [
                                 {
                                     'targets': -1, "render": function (data, type, row) {
-                                    var row_edit = {{Gate::forUser(auth('admin')->user())->check('admin.xunlian.edit') ? 1 : 0}};
-                                    var row_delete = {{Gate::forUser(auth('admin')->user())->check('admin.xunlian.destroy') ? 1 :0}};
-                                    var row_merchant = {{Gate::forUser(auth('admin')->user())->check('admin.merchant.index') ? 1 :0}}
-									var str = '';
+                                    var row_edit = {{Gate::forUser(auth('admin')->user())->check('admin.log.edit') ? 1 : 0}};
+                                    var row_delete = {{Gate::forUser(auth('admin')->user())->check('admin.log.destroy') ? 1 :0}};
+                                    var str = '';
 
                                     //编辑
                                     if (row_edit) {
-                                        str += '<a style="margin:3px;" href="/admin/xunlian/' + row['id'] + '/edit" class="X-Small btn-xs text-success "><i class="fa fa-edit"></i> 编辑</a>';
+                                        str += '<a style="margin:3px;" href="/admin/log/' + row['id'] + '/edit" class="X-Small btn-xs text-success "><i class="fa fa-edit"></i> 编辑</a>';
                                     }
 
                                     //删除
                                     if (row_delete) {
                                         str += '<a style="margin:3px;" href="#" attr="' + row['id'] + '" class="delBtn X-Small btn-xs text-danger"><i class="fa fa-times-circle"></i> 删除</a>';
                                     }
-									//商户号管理
-									if(row_merchant){
-										str += '<a style="margin:3px;" href="/admin/merchant/' + row['id'] + '/index" class="X-Small btn-xs text-success "><i class="fa fa-key"></i> 商户号</a>';
-                                    }
-									return str;
+									
+                                    return str;
                                 }
                                 }
-                            ]
+                            ] */
                         });
 
                         table.on('preXhr.dt', function () {
@@ -188,7 +176,7 @@
 
                         $("table").delegate('.delBtn', 'click', function () {
                             var id = $(this).attr('attr');
-                            $('.deleteForm').attr('action', '/admin/xunlian/' + id);
+                            $('.deleteForm').attr('action', '/admin/log/' + id);
                             $("#modal-delete").modal();
                         });
 
