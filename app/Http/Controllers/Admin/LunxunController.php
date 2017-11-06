@@ -164,9 +164,6 @@ class LunxunController extends Controller
     {
 		ini_set('max_execution_time', '0');
 		ini_set('memory_limit','1024M');
-		ob_start();
-		echo '正在轮查······';
-		ob_end_flush();
 		$data= session('data');
         foreach($data as $key=>$v){
 			$i = $key;
