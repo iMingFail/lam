@@ -169,6 +169,10 @@ class LunxunController extends Controller
 		ob_end_flush();
 		$data= session('data');
         foreach($data as $key=>$v){
+			$i = $key;
+			if($key%5==0){
+				break;
+			}
 			if($key>$i){
 				$merchant = Merchant::where('mchntid',$v[0])->first();
 				if(!$merchant){
@@ -183,10 +187,6 @@ class LunxunController extends Controller
 				$tag->channlNum = $channlNum;
 				$tag->mid = $merchant->id;
 				$tag->save();
-			}
-			$i = $key;
-			if($key%5==0){
-				break;
 			}
 		}
 		if($i>=count($data)){
