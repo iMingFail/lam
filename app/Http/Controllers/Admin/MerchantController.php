@@ -92,7 +92,7 @@ class MerchantController extends Controller
             $tag->$field = $request->get($field);
         }
         $tag->save();
-        event(new \App\Events\userActionEvent('\App\Models\Admin\Merchant', $tag->id, 1, '添加了商户号' . $tag->merchant));
+        event(new \App\Events\userActionEvent('\App\Models\Admin\Merchant', $tag->id, 1, '添加了商户号' . $tag->mchntid));
         return redirect('/admin/merchant/'.$request->get('xuid').'/index')->withSuccess('添加成功！');
     }
 
@@ -115,15 +115,15 @@ class MerchantController extends Controller
      */
     public function edit($id)
     {
-        $tag = XunlianUser::find((int)$id);
-        if (!$tag) return redirect('/admin/xunlian')->withErrors("找不到该商户!");
+        $tag = Merchant::find((int)$id);
+        if (!$tag) return redirect('/admin/merchant')->withErrors("找不到该商户号!");
        
         foreach (array_keys($this->fields) as $field) {
             $data[$field] = old($field, $tag->$field);
         }
-        $data['id'] = (int)$id;
-		$data['aids'] = User::select('id','name')->get();
-        return view('admin.xunlian.edit', $data);
+        $data['xuids'] = XunlianUser::select('id','name')->get();
+		$data['xuid'] = $xuid;
+        return view('admin.merchant.edit', $data);
     }
 
     /**
@@ -135,13 +135,13 @@ class MerchantController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $tag = XunlianUser::find((int)$id);
+        $tag = Merchant::find((int)$id);
         foreach (array_keys($this->fields) as $field) {
             $tag->$field = $request->get($field);
         }
         $tag->save();
-		event(new \App\Events\userActionEvent('\App\Models\Admin\XunlianUser', $tag->id, 3, '编辑了商户' . $tag->name));
-        return redirect('/admin/xunlian')->withSuccess('添加成功！');
+		event(new \App\Events\userActionEvent('\App\Models\Admin\Merchant', $tag->id, 3, '编辑了商户号' . $tag->mchntid));
+        return redirect('/admin/merchant'.$request->get('xuid').'/index')->withSuccess('添加成功！');
     }
 
     /**
@@ -152,14 +152,13 @@ class MerchantController extends Controller
      */
     public function destroy($id)
     {
-        $tag = XunlianUser::find((int)$id);
+        $tag = Merchant::find((int)$id);
         if ($tag && $tag->id != 1) {
             $tag->delete();
         } else {
             return redirect()->back()
                 ->withErrors("删除失败");
         }
-
         return redirect()->back()
             ->withSuccess("删除成功");
     }
