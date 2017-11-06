@@ -170,7 +170,7 @@ class LunxunController extends Controller
 				if($key==0){
 					continue;
 				}
-				if($key%5==0&&$key!=$i){
+				if($key%5==0&&$key!=$i-1){
 					break;
 				}
 				$i = $key;
