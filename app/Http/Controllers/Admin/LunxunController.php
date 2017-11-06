@@ -116,7 +116,8 @@ class LunxunController extends Controller
 					//usleep(50000);
 				}
 				if($key%5==0){
-					ob_end_clean();
+					ob_flush();
+					//ob_end_clean();
 				}
 			}
 		});
