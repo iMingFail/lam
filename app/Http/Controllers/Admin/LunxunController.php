@@ -166,11 +166,12 @@ class LunxunController extends Controller
 		ini_set('memory_limit','1024M');
 		$data= session('data');
         foreach($data as $key=>$v){
-			$i = $key;
+			
 			if($key%5==0){
 				break;
 			}
 			if($key>$i){
+				$i = $key;
 				$merchant = Merchant::where('mchntid',$v[0])->first();
 				if(!$merchant){
 					continue;
