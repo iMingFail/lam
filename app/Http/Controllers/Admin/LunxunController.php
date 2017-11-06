@@ -183,14 +183,14 @@ class LunxunController extends Controller
 				$tag->channlNum = $channlNum;
 				$tag->mid = $merchant->id;
 				$tag->save();
-				$i = $key;
-				if($key%5==0){
-					break;
-				}
+			}
+			$i = $key;
+			if($key%5==0){
+				break;
 			}
 		}
-		event(new \App\Events\userActionEvent('\App\Models\Admin\Lunxun', 0, 1, '批量执行轮询' ));
 		if($i>=count($data)){
+			event(new \App\Events\userActionEvent('\App\Models\Admin\Lunxun', 0, 1, '批量执行轮询' ));
 			return redirect('/admin/lunxun');
 		}
 		return redirect('/admin/lunxun/show/'.$i);
