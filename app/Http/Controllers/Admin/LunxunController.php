@@ -166,26 +166,26 @@ class LunxunController extends Controller
 		$data= session('data');
         foreach($data as $key=>$v){
 			if($key>$i){
-				$i = $key;
+				$i = $key;echo $i."<br/>";
 				if($key==0){
 					continue;
 				}
 				if($key%5==0&&$key!=$i){
 					break;
 				}
-				/* $merchant = Merchant::where('mchntid',$v[0])->first();
+				/*  $merchant = Merchant::where('mchntid',$v[0])->first();
 				if(!$merchant){
 					continue;
 				}
-				$channlNum = time().rand(1000,9999); */
-				/* $state = $this->checkrecharge($errorDetail,$channlNum,$v[2],$merchant->miyao,$v[0]);
+				$channlNum = time().rand(1000,9999); 
+				$state = $this->checkrecharge($errorDetail,$channlNum,$v[2],$merchant->miyao,$v[0]);
 				$tag = new Lunxun();
 				$tag->errorDetail = $errorDetail;
 				$tag->state = $state;
 				$tag->orderNum = $v[2];
 				$tag->channlNum = $channlNum;
 				$tag->mid = $merchant->id;
-				$tag->save(); */
+				$tag->save();  */
 			}
 		}
 		if($i>=count($data)||count($data)==0){
