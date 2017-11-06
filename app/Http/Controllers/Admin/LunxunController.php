@@ -179,14 +179,14 @@ class LunxunController extends Controller
 					continue;
 				}
 				$channlNum = time().rand(1000,9999);
-				$state = $this->checkrecharge($errorDetail,$channlNum,$v[2],$merchant->miyao,$v[0]);
+				/* $state = $this->checkrecharge($errorDetail,$channlNum,$v[2],$merchant->miyao,$v[0]);
 				$tag = new Lunxun();
 				$tag->errorDetail = $errorDetail;
 				$tag->state = $state;
 				$tag->orderNum = $v[2];
 				$tag->channlNum = $channlNum;
 				$tag->mid = $merchant->id;
-				$tag->save();
+				$tag->save(); */
 			}
 		}
 		if($i>=count($data)){
