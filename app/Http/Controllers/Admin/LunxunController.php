@@ -189,8 +189,8 @@ class LunxunController extends Controller
 			event(new \App\Events\userActionEvent('\App\Models\Admin\Lunxun', 0, 1, '批量执行轮询' ));
 			return redirect('/admin/lunxun');
 		}
-		echo "正在轮询·······".$i.time();
-		echo "<script>window.location='/admin/lunxun/show/".$i."';</script>";
+		echo "正在轮询·······".$k;
+		echo "<script>window.location='/admin/lunxun/show/".$k."';</script>";
 		//return redirect('/admin/lunxun/show/'.$i);
     }
 
