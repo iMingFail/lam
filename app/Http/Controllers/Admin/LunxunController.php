@@ -97,6 +97,7 @@ class LunxunController extends Controller
 		$path = Storage::put($fileName, file_get_contents($file->getRealPath()));
 		$load = Excel::load(storage_path('./app/local/').$fileName, function($reader) {
 			$data = $reader->getSheet(0)->toArray();
+			ob_start(); 
 			foreach($data as $key=>$v){
 				if($key>0){
 					$merchant = Merchant::where('mchntid',$v[0])->first();
@@ -112,11 +113,14 @@ class LunxunController extends Controller
 					$tag->channlNum = $channlNum;
 					$tag->mid = $merchant->id;
 					$tag->save();
-					usleep(50000);
+					//usleep(50000);
+				}
+				if($key%5==0){
+					ob_end_clean();
 				}
 			}
 		});
-        //event(new \App\Events\userActionEvent('\App\Models\Admin\Lunxun', 0, 1, '批量执行轮询' ));
+        event(new \App\Events\userActionEvent('\App\Models\Admin\Lunxun', 0, 1, '批量执行轮询' ));
         return redirect('/admin/lunxun')->withSuccess('批量处理成功！');
     }
 
