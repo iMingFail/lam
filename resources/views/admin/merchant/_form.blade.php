@@ -22,12 +22,7 @@
     <div class="col-md-5">
         <select class="form-control" name="xuid" >
 		@foreach ($xuids as $xu)
-			 @if($xuid!=0) 
-					@if($xuid==$xu->id) <option value='{{$xu->id}}' @if($xuid==$xu->id) selected @endif>{{$xu->name}}</option> @endif
-			 @else
-				<option value='{{$xu->id}}' @if($xuid==$xu->id) selected @endif>{{$xu->name}}</option>
-			 @endif
-			
+			<option value='{{$xu->id}}' @if($xuid==$xu->id) selected @endif>{{$xu->name}}</option>
 		@endforeach
 		</select>
     </div>
