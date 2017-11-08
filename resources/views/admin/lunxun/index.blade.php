@@ -12,7 +12,13 @@
         <div class="col-md-6">
         </div>
         <div class="col-md-6 text-right">
+             @if(Gate::forUser(auth('admin')->user())->check('admin.lunxun.one'))
+                    <a href="/admin/lunxun/one" class="btn btn-success btn-md">
+                        <i class="fa fa-plus-circle"></i> 单个轮询
+                    </a>
+                @endif
             @if(Gate::forUser(auth('admin')->user())->check('admin.lunxun.create'))
+            
                 <a href="/admin/lunxun/create" class="btn btn-success btn-md">
                     <i class="fa fa-plus-circle"></i> 批量轮询
                 </a>

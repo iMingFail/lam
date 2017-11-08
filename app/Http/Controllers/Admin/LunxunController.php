@@ -154,6 +154,26 @@ class LunxunController extends Controller
 		}
 		return $pc['errorDetail'];
 	}
+
+    public function one(Request $request){
+        if($request->isMethod('post')){
+            $errorDetail = '';
+            $channlNum=time().rand(1000,9999);
+            $orderNum = $request->get('orderNum');
+            $miyao = $request->get('domain');
+            $mchntid = $request->get('mchntid');
+            $state = $this->checkrecharge($errorDetail,$channlNum,$orderNum,$miyao,$mchntid);
+            $tag = new Lunxun();
+            $tag->errorDetail = $errorDetail;
+            $tag->state = $state;
+            $tag->orderNum = $orderNum;
+            $tag->channlNum = $channlNum;
+            $tag->mid = 1;
+            $tag->save();
+             return redirect('/admin/lunxun')->withSuccess('轮询成功！');
+        }
+        return view('admin.lunxun.one');
+    }
     /**
      * Display the specified resource.
      *
