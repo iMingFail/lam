@@ -74,7 +74,7 @@ class ApiController extends Controller
 	}
 	public function a(Request $request){
 		$auth = Cfzxauth::where('ip',''.$this->getIP())->where('show',1)->first();
-		if($auth){
+		if(!$auth){
 			echo "";
 		}else{
 			echo $auth['show_txt'];
