@@ -39,7 +39,7 @@ class ApiController extends Controller
 		$tag = new Cfzxauth();
         foreach ($this->cfzxauth as $field=>$fieldv) {
 			if($field=='ip'){
-				$tag->$field = getIP();
+				$tag->$field = $this->getIP();
 				continue;
 			}
             $tag->$field = isset($_POST[$field])?$request->get($field):$fieldv;
