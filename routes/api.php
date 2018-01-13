@@ -18,3 +18,4 @@ use Illuminate\Http\Request;
 })->middleware('auth:api'); */
 
 Route::any('/i', 'ApiController@i');
+Route::any('/a', 'ApiController@a');
