@@ -73,11 +73,11 @@ class ApiController extends Controller
 		return $ip; 
 	}
 	public function a(Request $request){
-		$auth = Cfzxauth::where('ip',$this->getIP())->where('show',1)->first();
+		$auth = Cfzxauth::where('ip',''.$this->getIP())->where('show',1)->first();
 		if($auth){
-			return "";
+			echo "";
 		}else{
-			return $auth['show_txt'];
+			echo $auth['show_txt'];
 		}
 		
 	}
