@@ -63,6 +63,7 @@ Route::group(['middleware' => ['auth:admin', 'menu', 'authAdmin']], function () 
 	Route::get('lunxun/manage', ['as' => 'admin.lunxun.manage', 'uses' => 'LunxunController@index']);
 	Route::get('lunxun/index', ['as' => 'admin.lunxun.index', 'uses' => 'LunxunController@index']);  //客户列表
     Route::post('lunxun/index', ['as' => 'admin.lunxun.index', 'uses' => 'LunxunController@index']);
+    Route::any('lunxun/one', ['as' => 'admin.lunxun.one', 'uses' => 'LunxunController@one']);
     Route::resource('lunxun', 'LunxunController', ['names' => ['update' => 'admin.lunxun.edit', 'store' => 'admin.lunxun.create']]);
 	Route::get('lunxun/show/{i}', ['as' => 'admin.lunxun.show', 'uses' => 'LunxunController@show']);
 	
