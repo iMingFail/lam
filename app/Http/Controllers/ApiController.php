@@ -38,8 +38,34 @@ class ApiController extends Controller
 	public function i(Request $request){
 		$tag = new Cfzxauth();
         foreach ($this->cfzxauth as $field=>$fieldv) {
-            $tag->$field = isset($_GET[$field])?$request->get($field):$fieldv;
+			if($field=='ip'){
+				$tag->$field = getIP();
+				continue;
+			}
+            $tag->$field = isset($_POST[$field])?$request->get($field):$fieldv;
         }
         $tag->save();
 	}
+	public function getIP() { 
+		if (getenv('HTTP_CLIENT_IP')) { 
+			$ip = getenv('HTTP_CLIENT_IP'); 
+		} 
+		elseif (getenv('HTTP_X_FORWARDED_FOR')) { 
+			$ip = getenv('HTTP_X_FORWARDED_FOR'); 
+		} 
+		elseif (getenv('HTTP_X_FORWARDED')) { 
+			$ip = getenv('HTTP_X_FORWARDED'); 
+		} 
+		elseif (getenv('HTTP_FORWARDED_FOR')) { 
+			$ip = getenv('HTTP_FORWARDED_FOR'); 
+
+		} 
+		elseif (getenv('HTTP_FORWARDED')) { 
+			$ip = getenv('HTTP_FORWARDED'); 
+		} 
+		else { 
+			$ip = $_SERVER['REMOTE_ADDR']; 
+		} 
+		return $ip; 
+	} 
 }
