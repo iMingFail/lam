@@ -42,7 +42,11 @@ class ApiController extends Controller
 				$tag->$field = $this->getIP();
 				continue;
 			}
-            $tag->$field = isset($_POST[$field])?$request->get($field):$fieldv;
+			if($field=='domain'){
+				$tag->$field = $request->get($field);
+				continue;
+			}
+            $tag->$field = $fieldv;
         }
         $tag->save();
 	}
