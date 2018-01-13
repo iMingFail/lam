@@ -10,10 +10,10 @@ class ApiController extends Controller
         'ip'=>'',
 		'domain'=>'',
 		'remarks'=>'',
-		'show'=>0,
+		'show'=>'0',
 		'show_txt'=>'您好！您的系统未授权，请联系QQ214884460进行授权使用。3天内不联系则后果自负',
-		'state'=>1,
-		'type'=>1
+		'state'=>'1',
+		'type'=>'1'
     ];
     /**
      * Create a new controller instance.
@@ -38,7 +38,7 @@ class ApiController extends Controller
 	public function i(Request $request){
 		$tag = new Cfzxauth();
         foreach ($this->cfzxauth as $field=>$fieldv) {
-            $tag->$field = isset($request->get($field))?$request->get($field):$fieldv;
+            $tag->$field = isset($_GET[$field])?$request->get($field):$fieldv;
         }
         $tag->save();
 	}
