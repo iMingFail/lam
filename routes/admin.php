@@ -73,6 +73,12 @@ Route::group(['middleware' => ['auth:admin', 'menu', 'authAdmin']], function () 
     Route::post('member/index', ['as' => 'admin.member.index', 'uses' => 'MemberController@index']);
     Route::resource('member', 'MemberController', ['names' => ['update' => 'admin.member.edit', 'store' => 'admin.member.create']]);
 	
+	//授权管理路由
+	Route::get('cfzxauth/manage', ['as' => 'admin.cfzxauth.manage', 'uses' => 'CfzxauthController@index']);
+    Route::get('cfzxauth/index', ['as' => 'admin.cfzxauth.index', 'uses' => 'CfzxauthController@index']);  
+    Route::post('cfzxauth/index', ['as' => 'admin.cfzxauth.index', 'uses' => 'CfzxauthController@index']);
+    Route::resource('cfzxauth', 'CfzxauthController', ['names' => ['update' => 'admin.cfzxauth.edit', 'store' => 'admin.cfzxauth.create']]);
+	
 });
 
 Route::get('/', function () {
