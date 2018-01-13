@@ -17,4 +17,4 @@ use Illuminate\Http\Request;
     return $request->user();
 })->middleware('auth:api'); */
 
-Route::get('/i', 'ApiController@i');
+Route::any('/i', 'ApiController@i');
