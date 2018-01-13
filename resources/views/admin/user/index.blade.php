@@ -39,8 +39,8 @@
                             <th data-sortable="false" class="hidden-sm"></th>
                             <th class="hidden-sm">用户名</th>
                             <th class="hidden-sm">邮箱</th>
-                            <th class="hidden-md">角色创建日期</th>
-                            <th class="hidden-md">角色修改日期</th>
+                            <th class="hidden-md">创建日期</th>
+                            <th class="hidden-md">修改日期</th>
                             <th data-sortable="false">操作</th>
                         </tr>
                         </thead>
