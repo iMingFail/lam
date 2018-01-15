@@ -11,7 +11,7 @@ class ApiController extends Controller
 		'domain'=>'',
 		'remarks'=>'',
 		'show'=>'0',
-		'show_txt'=>'您好！您的系统未授权，请3天内联系QQ295348072进行授权使用。',
+		'show_txt'=>'您好！您的系统未授权，请3天内联系QQ1054895115进行授权使用。',
 		'state'=>'1',
 		'type'=>'1'
     ];
